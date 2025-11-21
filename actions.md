@@ -25,3 +25,11 @@
 3. Implemented `train.py` and `evaluate.py`
 4. Ran the pipeline: `dvc repro`
 5. View dependency graph: `dvc dag`
+
+### Part 3 - DVC Experiments
+1. Performed 3 different experiments: `make dvc-exp`
+2. Compared experiments: `make dvc-exp-show`
+3. Applied best experiment name: `make dvc-apply EXP_NAME=<name>`
+4. Pushed best experiment to dvc "remote" storage: `make dvc-push EXP_NAME=<name>`
+
+**Note:** Why/When would I use DVC compared to other tools like Weights & Biases/MLFlow - If I need to a fully reproducible, git-native data/model-versioned pipeline (the other options don't have the git-native approach). Other tools like W&B/MLFlow are for when I need more features such as live experiment dashboards, visualizations, and collaboration.
