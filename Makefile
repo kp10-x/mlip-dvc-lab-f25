@@ -1,0 +1,2 @@
+dvc-init:
+	dvc init
