@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import yaml
 from sklearn.model_selection import train_test_split
+import os
 
 with open('params.yaml', 'r') as f:
     params = yaml.safe_load(f)
@@ -20,6 +21,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 train_df = pd.concat([X_train, y_train], axis=1)
 test_df = pd.concat([X_test, y_test], axis=1)
+
+os.makedirs('data/processed', exist_ok=True)
 
 train_df.to_csv('data/processed/train.csv', index=False)
 test_df.to_csv('data/processed/test.csv', index=False)

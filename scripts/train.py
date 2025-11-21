@@ -5,14 +5,16 @@ from sklearn.ensemble import RandomForestClassifier
 from pathlib import Path
 
 # TODO: For Part 2 (pipeline) load hyperparameters from params.yaml
+with open('params.yaml', 'r') as f:
+    params = yaml.safe_load(f)
 
 # TODO: Fill in hyperparameters
-n_estimators = 100
-max_depth = 5
-random_state = 42
+n_estimators = params['train'].get('n_estimators', 100)
+max_depth = params['train'].get('max_depth', 5)
+random_state = params['train'].get('random_state', 42)
 
 # TODO: Set the data path (different for Part 1 vs Part 2)
-data_path = 'data/raw/data.csv' # Part 1
+data_path = 'data/processed/train.csv' # Part 1
 
 df = pd.read_csv(data_path)
 
