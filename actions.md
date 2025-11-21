@@ -16,3 +16,12 @@
 7. Train and track model: `dvc add models/classifier.pkl`, `git add models/classifier.pkl.dvc`, `git commit -m "Track trained model with DVC"`
 
 **Note:** Commiting a `.dvc` file stores a pointer to that file, the actual file goes to `dvc`'s cache (In my case - `.dvc/cache/files/md5/*`)
+
+### Part 2 - DVC Pipelines
+1. Remove the manual tracking (only the metadata, not the actual file):
+   - From Git: `git rm --cached data/raw/data.csv.dvc`, `git rm --cached models/classifier.pkl.dvc`, `git commit -m "Remove manual DVC tracking for pipeline setup"`
+   - From DVC: `dvc remove data/raw/data.csv.dvc`, `dvc remove models/classifier.pkl.dvc`
+2. Steps 2 and 3 - set up `dvc.yaml` and `params.yaml`
+3. Implemented `train.py` and `evaluate.py`
+4. Ran the pipeline: `dvc repro`
+5. View dependency graph: `dvc dag`

@@ -1,0 +1,60 @@
+# TODO: Create dvc.yaml with three stages: preprocess, train, and evaluate
+# 
+# Each stage should define:
+#   - cmd: command to run
+#   - deps: input dependencies (files/code)
+#   - params: parameters from params.yaml (optional)
+#   - outs: output files (for preprocess and train)
+#   - metrics: metrics file (for evaluate)
+#
+# Hints:
+#   - Look at scripts/preprocess.py, scripts/train.py, scripts/evaluate.py
+#   - Check DVC documentation for dvc.yaml syntax
+#   - Use 'cache: false' for metrics so they're always regenerated
+#
+# Example structure:
+# stages:
+#   stage_name:
+#     cmd: python script.py
+#     deps:
+#       - input_file.csv
+#       - script.py
+#     params:
+#       - param_name.value
+#     outs:
+#       - output_file.csv
+
+# ==== MY WRITTEN DVC CONFIG ====
+# preprocess, train, and evaluate
+stages:
+  preprocess:
+    cmd: python scripts/preprocess.py
+    deps:
+      - data/raw/data.csv
+      - scripts/preprocess.py
+    params:
+      - preprocess.test_split
+      - preprocess.random_state
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+  train:
+    cmd: python scripts/train.py
+    deps:
+      - data/processed/train.csv
+      - scripts/train.py
+    params:
+      - train.n_estimators
+      - train.max_depth
+      - train.random_state
+    outs:
+      - models/classifier.pkl
+  evaluate:
+    cmd: python scripts/evaluate.py
+    deps:
+      - data/processed/test.csv
+      - models/classifier.pkl
+      - scripts/evaluate.py
+    metrics:
+      - metrics/scores.json:
+          cache: false
